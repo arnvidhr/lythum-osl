@@ -67,13 +67,14 @@ namespace Lythum.OSL.Core.Data
 		public DataTable Query (string sql)
 		{
 			Error ();
+			LastSql = sql;
+			Debug.WriteLine ("SQL::Query: " + sql);
+
 			DataTable retVal = null;
 			IDbCommand cmd = null;
 			
 			try
 			{
-				LastSql = sql;
-				Debug.Print ("SQL::Query: " + sql);
 				Validation.RequireValidString (sql, "sql");
 
 				cmd = CreateCommand ();
@@ -95,7 +96,7 @@ namespace Lythum.OSL.Core.Data
 				// throw exception if it enabled
 				if (ThrowException)
 					throw new LythumException (
-						"Lythum.OSL.Core.Data.Sql.Query [ " + LastSql + " ]", ex);
+						"Sql.Query: [" + LastSql + " ]", ex);
 			}
 			finally
 			{
@@ -120,7 +121,46 @@ namespace Lythum.OSL.Core.Data
 		/// <param name="sql"></param>
 		public void Execute(string sql)
 		{
-			Debug.Print("SQL::Execute: " + sql);
+
+			Error ();
+			LastSql = sql;
+			Debug.WriteLine("SQL::Execute: " + sql);
+
+			IDbCommand cmd = null;
+
+			try
+			{
+				Validation.RequireValidString (sql, "sql");
+
+				cmd = CreateCommand ();
+
+				if (cmd != null)
+				{
+					cmd.CommandText = sql;
+					cmd.ExecuteNonQuery ();
+				}
+			}
+			catch (Exception ex)
+			{
+				Error (ex);
+
+				// throw exception if it enabled
+				if (ThrowException)
+					throw new LythumException ("Sql.Execute [ " + LastSql + " ]", ex);
+			}
+			finally
+			{
+				if (cmd != null)
+				{
+					cmd.Dispose ();
+				}
+
+				// close if set to close and if transaction not in progress
+				if (CloseConnection)
+				{
+					Close ();
+				}
+			}
 		}
 		
 		/// <summary>
@@ -173,7 +213,7 @@ namespace Lythum.OSL.Core.Data
 		
 		
 		/// <summary>
-		/// Closes connection to DB it it's open
+		/// Closes connection to DB if it's open
 		/// </summary>
 		void Close ()
 		{

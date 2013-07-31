@@ -47,15 +47,11 @@
     <Compile Include="Errors\ErrorInfo.cs" />
     <Compile Include="Errors\LythumException.cs" />
     <Compile Include="Errors\Validation.cs" />
+    <Compile Include="IO\FileSystem.cs" />
     <Compile Include="Metadata\IErrorInfo.cs" />
     <Compile Include="Metadata\ILythumOSLBase.cs" />
     <Compile Include="Metadata\ISimpleDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data" />
-    <Folder Include="Metadata" />
-    <Folder Include="Errors" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>
