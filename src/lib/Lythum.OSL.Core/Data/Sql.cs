@@ -76,7 +76,7 @@ namespace Lythum.OSL.Core.Data
 				Debug.Print ("SQL::Query: " + sql);
 				Validation.RequireValidString (sql, "sql");
 
-				cmd = CreateCommand (true);
+				cmd = CreateCommand ();
 
 				if (cmd != null)
 				{
@@ -187,7 +187,7 @@ namespace Lythum.OSL.Core.Data
 		/// Creates command for database access
 		/// </summary>
 		/// <returns></returns>
-		public DbCommand CreateCommand (bool connect)
+		public DbCommand CreateCommand ()
 		{
 			DbCommand cmd = null;
 
