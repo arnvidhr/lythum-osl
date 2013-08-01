@@ -50,6 +50,9 @@
     <Compile Include="IO\FileSystem.cs" />
     <Compile Include="Metadata\IErrorInfo.cs" />
     <Compile Include="Metadata\ILythumOSLBase.cs" />
+    <Compile Include="Metadata\IMessenger.cs" />
+    <Compile Include="Metadata\IProgress.cs" />
+    <Compile Include="Metadata\IProgressMessenger.cs" />
     <Compile Include="Metadata\ISimpleDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
