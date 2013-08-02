@@ -55,6 +55,7 @@ namespace Lythum.OSL.Core.Errors
 			Error();
 			
 			Exception = ex;
+			ErrorText = ex.Message;
 		}
 
 		#endregion
