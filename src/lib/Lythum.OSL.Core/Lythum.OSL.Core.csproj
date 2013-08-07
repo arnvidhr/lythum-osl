@@ -53,7 +53,10 @@
     <Compile Include="Metadata\IMessenger.cs" />
     <Compile Include="Metadata\IProgress.cs" />
     <Compile Include="Metadata\IProgressMessenger.cs" />
+    <Compile Include="Metadata\IProgressUnit.cs" />
     <Compile Include="Metadata\ISimpleDataAccess.cs" />
+    <Compile Include="Progress\ProgressState.cs" />
+    <Compile Include="Progress\ProgressUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />

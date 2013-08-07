@@ -18,5 +18,6 @@ namespace Lythum.OSL.Core.Metadata
 		int Minimum { get; set; }
 		int Maximum { get; set; }
 		int Value { get; set; }
+		void Update ();
 	}
 }
