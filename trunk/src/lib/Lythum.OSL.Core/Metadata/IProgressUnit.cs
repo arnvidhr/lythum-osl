@@ -37,7 +37,7 @@ namespace Lythum.OSL.Core.Metadata
 		/// Progress process
 		/// </summary>
 		/// <returns></returns>
-		bool Start ();
+		void Start ();
 
 		/// <summary>
 		/// True if needs to cancel
