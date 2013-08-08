@@ -11,5 +11,6 @@ namespace Lythum.OSL.Core.Progress
 		Progress,
 		Success,
 		Error,
+		Canceled,
 	}
 }

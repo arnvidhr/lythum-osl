@@ -8,7 +8,7 @@ using Lythum.OSL.Core.Metadata;
 
 namespace Lythum.OSL.Core.Progress
 {
-	public abstract class ProgressUnit : IProgressUnit
+	public abstract class ProgressUnit : ErrorInfo, IProgressUnit
 	{
 		#region ctor
 		public ProgressUnit ()
@@ -31,7 +31,7 @@ namespace Lythum.OSL.Core.Progress
 		public int Processed { get; protected set; }
 		public bool Cancel { get; set; }
 
-		public abstract bool Start ();
+		public abstract void Start ();
 
 
 		#endregion

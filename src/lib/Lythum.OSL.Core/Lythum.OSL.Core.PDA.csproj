@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Data\Sql.cs" />
     <Compile Include="Errors\ErrorInfo.cs" />
+    <Compile Include="Errors\Fix.cs" />
     <Compile Include="Errors\LythumException.cs" />
     <Compile Include="Errors\Validation.cs" />
     <Compile Include="IO\FileSystem.cs" />
