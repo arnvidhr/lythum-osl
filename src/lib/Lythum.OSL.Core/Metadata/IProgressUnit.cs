@@ -19,19 +19,19 @@ namespace Lythum.OSL.Core.Metadata
 		/// <summary>
 		/// Progress state, default: Pristine
 		/// </summary>
-		ProgressState State { get; }
+		ProgressState State { get; set; }
 		/// <summary>
 		/// Current process name
 		/// </summary>
-		string Message { get; }
+		string Message { get; set;  }
 		/// <summary>
 		/// Total units to process
 		/// </summary>
-		int Total { get; }
+		int Total { get; set;  }
 		/// <summary>
 		/// Total units processed
 		/// </summary>
-		int Processed { get; }
+		int Processed { get; set; }
 
 		/// <summary>
 		/// Progress process
