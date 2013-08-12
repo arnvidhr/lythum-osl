@@ -20,10 +20,11 @@ namespace Lythum.OSL.Core.Data
 	/// Class which works with ADO.NET drivers
 	/// Designed to simplify database access
 	/// </summary>
-	public class Sql : ErrorInfo
+	public class Sql : ErrorInfo, ISimpleDataAccess, ISimpleDataTransaction
 	{
 		#region Attributes
 		DbConnection _Connection;
+		DbTransaction _Transaction;
 		
 		#endregion
 		
@@ -34,7 +35,7 @@ namespace Lythum.OSL.Core.Data
 		public bool CloseConnection { get; set; }
 		public bool ThrowException { get; set; }
 		public string LastSql { get; protected set; }
-		
+
 		#endregion
 		
 		#region ctor
@@ -105,7 +106,7 @@ namespace Lythum.OSL.Core.Data
 					cmd.Dispose ();
 				}
 
-				if (CloseConnection)
+				if (CloseConnection && !IsTransactionInProgress)
 				{
 					Close ();
 				}
@@ -156,7 +157,7 @@ namespace Lythum.OSL.Core.Data
 				}
 
 				// close if set to close and if transaction not in progress
-				if (CloseConnection)
+				if (CloseConnection && !IsTransactionInProgress)
 				{
 					Close ();
 				}
@@ -202,7 +203,7 @@ namespace Lythum.OSL.Core.Data
 		/// Connects to database if it's not connected
 		/// </summary>
 		/// <returns>true if success</returns>
-		bool Connect ()
+		public bool Connect ()
 		{
 			if(_Connection.State == ConnectionState.Closed){
 				_Connection.Open();
@@ -213,13 +214,21 @@ namespace Lythum.OSL.Core.Data
 		
 		
 		/// <summary>
-		/// Closes connection to DB if it's open
+		/// Closes connection to DB if it's open and rollbacks any transaction
 		/// </summary>
 		void Close ()
 		{
+			Close (false);
+		}
 
-			if(_Connection.State != ConnectionState.Closed){
-				_Connection.Close();
+		public void Close (bool commit)
+		{
+			if (IsTransactionInProgress)
+				EndTransaction (commit);
+
+			if (_Connection.State != ConnectionState.Closed)
+			{
+				_Connection.Close ();
 			}
 		}
 		
@@ -254,6 +263,43 @@ namespace Lythum.OSL.Core.Data
 		
 		
 		#endregion
-		
+
+
+		#region ISimpleDataTransaction Members
+
+		public bool IsTransactionInProgress
+		{
+			get { return _Transaction != null; }
+		}
+
+		public bool BeginTransaction ()
+		{
+			if (!IsTransactionInProgress)
+			{
+				_Transaction = _Connection.BeginTransaction ();
+			}
+
+			return IsTransactionInProgress;
+		}
+
+		public void EndTransaction (bool commit)
+		{
+			if (IsTransactionInProgress)
+			{
+				if (commit)
+				{
+					_Transaction.Commit ();
+				}
+				else
+				{
+					_Transaction.Rollback ();
+				}
+
+				_Transaction.Dispose ();
+				_Transaction = null;
+			}
+		}
+
+		#endregion
 	}
 }

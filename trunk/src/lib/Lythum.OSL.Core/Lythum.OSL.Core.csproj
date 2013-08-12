@@ -55,6 +55,7 @@
     <Compile Include="Metadata\IProgressMessenger.cs" />
     <Compile Include="Metadata\IProgressUnit.cs" />
     <Compile Include="Metadata\ISimpleDataAccess.cs" />
+    <Compile Include="Metadata\ISimpleDataTransaction.cs" />
     <Compile Include="Progress\ProgressState.cs" />
     <Compile Include="Progress\ProgressUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

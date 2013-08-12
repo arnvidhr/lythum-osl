@@ -25,10 +25,10 @@ namespace Lythum.OSL.Core.Progress
 
 		#region IProgressUnit Members
 
-		public ProgressState State { get; protected set; }
-		public string Message { get; protected set; }
-		public int Total { get; protected set; }
-		public int Processed { get; protected set; }
+		public ProgressState State { get; set; }
+		public string Message { get; set; }
+		public int Total { get; set; }
+		public int Processed { get; set; }
 		public bool Cancel { get; set; }
 
 		public abstract void Start ();
