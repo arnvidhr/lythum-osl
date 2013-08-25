@@ -284,6 +284,11 @@ namespace Lythum.OSL.Core.Data
 
 		public void EndTransaction (bool commit)
 		{
+#if DEBUG
+			if (!IsTransactionInProgress && commit)
+				Debug.WriteLine ("WARNING! Transaction commit without transaction!");
+#endif
+
 			if (IsTransactionInProgress)
 			{
 				if (commit)

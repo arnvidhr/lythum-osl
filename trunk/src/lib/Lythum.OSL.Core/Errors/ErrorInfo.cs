@@ -55,8 +55,22 @@ namespace Lythum.OSL.Core.Errors
 			Error();
 			
 			Exception = ex;
-			ErrorText = ex.Message;
+
+			ErrorText = string.Empty;
+			DumpErrorText (ex);
 		}
+
+		void DumpErrorText (Exception ex)
+		{
+			if (ex != null)
+			{
+				ErrorText += ex.Message + "\r\n\r\n";
+
+				DumpErrorText (ex.InnerException);
+			}
+		}
+
+
 
 		#endregion
 	}
