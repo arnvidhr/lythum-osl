@@ -31,6 +31,9 @@
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -44,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Sql.cs" />
+    <Compile Include="Data\SQLite\SQLiteDataType.cs" />
     <Compile Include="Data\SQLite\SQLiteTable.cs" />
     <Compile Include="Data\SQLite\SQLiteTableField.cs" />
     <Compile Include="Errors\ErrorInfo.cs" />

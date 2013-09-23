@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Sql.cs" />
+    <Compile Include="Data\SQLite\SQLiteDataType.cs" />
     <Compile Include="Data\SQLite\SQLiteTable.cs" />
     <Compile Include="Data\SQLite\SQLiteTableField.cs" />
     <Compile Include="Errors\ErrorInfo.cs" />
