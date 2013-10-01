@@ -40,8 +40,20 @@ namespace Lythum.OSL.Core.Data.SQLite
 				{ SQLiteDataType.DATETIME, "DATETIME" },
             };
 
+		/// <summary>
+		/// Field name
+		/// </summary>
 		public string Name { get; set; }
+		/// <summary>
+		/// Field type
+		/// </summary>
 		public string Type { get; set; }
+		/// <summary>
+		/// Field alias, used for XML serialization to shortcut XML tags.
+		/// Normally this field is automatically initialized on SQLiteTable creation 
+		/// and don't require to manual initialization.
+		/// </summary>
+		public string Alias { get; set; }
 
 		public bool PrimaryKey { get; set; }
 		public bool AutoIncrement { get; set; }

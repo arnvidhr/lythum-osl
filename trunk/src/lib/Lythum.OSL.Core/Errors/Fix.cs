@@ -25,5 +25,30 @@ namespace Lythum.OSL.Core.Errors
 			}
 		}
 
+
+		public static string[] PrepareSqlArray(object[] array, bool parseNulls)
+		{
+			List<string> retVal = new List<string>();
+
+			if (array != null)
+			{
+				foreach (object o in array)
+				{
+					if ((parseNulls && DBNull.Value.Equals(o)) ||
+						(parseNulls && o == null)
+						)
+					{
+						retVal.Add("NULL");
+					}
+					else
+					{
+						retVal.Add("'" + FixString(o.ToString()) + "'");
+					}
+
+				}
+			}
+
+			return retVal.ToArray();
+		}
 	}
 }

@@ -6,6 +6,8 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
+//#define DISPLAY_DEBUG_INFO
+
 using System;
 using System.Data;
 using System.Data.Common;
@@ -69,7 +71,10 @@ namespace Lythum.OSL.Core.Data
 		{
 			Error ();
 			LastSql = sql;
+
+#if DISPLAY_DEBUG_INFO
 			Debug.WriteLine ("SQL::Query: " + sql);
+#endif
 
 			DataTable retVal = null;
 			IDbCommand cmd = null;
@@ -125,7 +130,10 @@ namespace Lythum.OSL.Core.Data
 
 			Error ();
 			LastSql = sql;
+
+#if DISPLAY_DEBUG_INFO
 			Debug.WriteLine("SQL::Execute: " + sql);
+#endif
 
 			IDbCommand cmd = null;
 
