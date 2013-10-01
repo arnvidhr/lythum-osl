@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
+
+using Lythum.OSL.Core.Data;
 
 namespace Lythum.OSL.Core.Data.SQLite
 {
@@ -11,6 +14,8 @@ namespace Lythum.OSL.Core.Data.SQLite
 		#region Constants
 
 		const string AliasMask = "a";
+		const string CsvColumnDelimiter = "\t";
+		const string CsvRecordDelimiter = "\r\n";
 
 		/// <summary>
 		/// {0} table name, {1} all fields creation info
@@ -38,14 +43,13 @@ namespace Lythum.OSL.Core.Data.SQLite
 			this.Name = name;
 			this.Fields = new List<SQLiteTableField> ();
 
-			ApplyFieldsAliasesToFields();
 		}
 
 		public SQLiteTable (string name, SQLiteTableField[] fields)
 			: this (name)
 		{
 			this.Fields.AddRange (fields);
-
+			ApplyFieldsAliasesToFields();
 		}
 
 		#endregion
@@ -115,6 +119,18 @@ namespace Lythum.OSL.Core.Data.SQLite
 			return retVal;
 		}
 
+		public string RenderSelect()
+		{
+			List<string> fields = new List<string>();
+
+			foreach (SQLiteTableField f in this.Fields)
+			{
+				fields.Add(f.Name);
+			}
+
+			return "SELECT " + string.Join(", ", fields.ToArray()) + " FROM " + this.Name;
+		}
+
 		/// <summary>
 		/// Applies field aliases to DataTable columns names (Obfuscation)
 		/// </summary>
@@ -146,6 +162,8 @@ namespace Lythum.OSL.Core.Data.SQLite
 				} // if
 			} // foreach
 
+			table.AcceptChanges();
+
 			return retVal;
 		}
 
@@ -171,6 +189,81 @@ namespace Lythum.OSL.Core.Data.SQLite
 
 
 			return retVal;
+		}
+
+
+		public string ConvertToCsv(DataTable table)
+		{
+			Errors.Validation.RequireValid(table, "table");
+
+			var result = new StringBuilder();
+
+			// Process rows
+			foreach (DataRow r in table.Rows)
+			{
+				// Process fields
+				foreach (SQLiteTableField f in this.Fields)
+				{
+					if (r[f.Name] != null || !DBNull.Value.Equals(r[f.Name]))
+					{
+						result.Append(
+							r[f.Name].ToString().Replace(CsvColumnDelimiter, " ").
+								Replace(CsvRecordDelimiter, " "));
+					}
+
+					result.Append(CsvColumnDelimiter);
+				} // fields
+
+				result.Append(CsvRecordDelimiter);
+
+			} // rows
+
+			return result.ToString();
+		}
+
+		public DataTable ConvertToDataTable(string csvData)
+		{
+			DataTable table = new DataTable(this.Name);
+
+			// creating table columns
+			foreach (SQLiteTableField f in this.Fields)
+			{
+				table.Columns.Add(f.Name);
+			}
+
+			StringReader sr = new StringReader(csvData);
+
+			while(true)
+			{
+				// Reading lines
+				string line = sr.ReadLine();
+
+				if (line == null)
+					break;
+
+				DataRow row = table.NewRow();
+				string[] nodes = line.Split(CsvColumnDelimiter[0]);
+
+				for (int i = 0; i < this.Fields.Count; i++)
+				{
+					SQLiteTableField f = this.Fields[i];
+
+					if (string.IsNullOrEmpty(nodes[i]))
+					{
+						row[f.Name] = DBNull.Value;
+					}
+					else
+					{
+						row[f.Name] = nodes[i];
+					}
+				}
+
+				table.Rows.Add(row);
+			}
+
+			table.AcceptChanges();
+
+			return table;
 		}
 
 		#endregion
