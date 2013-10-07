@@ -6,7 +6,7 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-//#define DISPLAY_DEBUG_INFO
+#define DISPLAY_DEBUG_INFO
 
 using System;
 using System.Data;
