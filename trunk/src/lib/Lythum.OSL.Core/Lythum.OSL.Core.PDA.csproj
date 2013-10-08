@@ -54,7 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\DbTable.cs" />
     <Compile Include="Data\Sql.cs" />
+    <Compile Include="Data\DbTableField.cs" />
     <Compile Include="Data\SQLite\SQLiteDataType.cs" />
     <Compile Include="Data\SQLite\SQLiteTable.cs" />
     <Compile Include="Data\SQLite\SQLiteTableField.cs" />
@@ -64,6 +66,8 @@
     <Compile Include="Errors\LythumException.cs" />
     <Compile Include="Errors\Validation.cs" />
     <Compile Include="IO\FileSystem.cs" />
+    <Compile Include="Metadata\IDbTable.cs" />
+    <Compile Include="Metadata\IDbTableField.cs" />
     <Compile Include="Metadata\ISimpleDataTransaction.cs" />
     <Compile Include="Metadata\IErrorInfo.cs" />
     <Compile Include="Metadata\ILythumOSLBase.cs" />
