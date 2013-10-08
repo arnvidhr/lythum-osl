@@ -16,6 +16,8 @@ namespace Lythum.OSL.Core.Data
 		const string CsvColumnDelimiter = "\t";
 		const string CsvRecordDelimiter = "\r\n";
 
+		const string SqlSelect = "SELECT {0} FROM {1}";
+
 		#endregion
 
 		#region Properties
@@ -75,17 +77,27 @@ namespace Lythum.OSL.Core.Data
 
 		public virtual string RenderSelectSql(string[] exceptFields)
 		{
+			List<string> exceptions = new List<string>();
 			List<string> fields = new List<string>();
 
-#warning todo: implement exceptFields
+			if (exceptFields != null)
+			{
+				exceptions.AddRange(exceptFields);
+			}
+
 
 			foreach (IDbTableField f in this.Fields)
 			{
-				fields.Add(f.Name);
+				if (!exceptions.Contains(f.Name))
+				{
+					fields.Add(f.Name);
+				}
 			}
 
-			return "SELECT " + string.Join(", ", fields.ToArray()) + " FROM " + this.Name;
-
+			return string.Format(
+				SqlSelect,
+				string.Join(", ", fields.ToArray()),
+				this.Name);
 		}
 
 		#endregion
