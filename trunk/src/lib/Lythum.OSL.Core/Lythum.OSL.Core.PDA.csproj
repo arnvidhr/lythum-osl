@@ -65,6 +65,7 @@
     <Compile Include="Errors\Fix.cs" />
     <Compile Include="Errors\LythumException.cs" />
     <Compile Include="Errors\Validation.cs" />
+    <Compile Include="Helpers.cs" />
     <Compile Include="IO\FileSystem.cs" />
     <Compile Include="Metadata\IDbTable.cs" />
     <Compile Include="Metadata\IDbTableField.cs" />

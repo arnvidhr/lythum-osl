@@ -20,10 +20,32 @@ namespace Lythum.OSL.Core.Data
 
 		#endregion
 
+		#region Attributes
+		List<string> _FieldNames;
+
+		#endregion
+
 		#region Properties
 
 		public string Name { get; set; }
 		public List<IDbTableField> Fields { get; protected set; }
+
+		public List<string> FieldNames 
+		{
+			get
+			{
+				if (_FieldNames.Count < 1)
+				{
+					foreach (IDbTableField f in Fields)
+					{
+						_FieldNames.Add(f.Name);
+					}
+				}
+
+				return _FieldNames;
+
+			}
+		}
 
 		#endregion
 
@@ -34,6 +56,7 @@ namespace Lythum.OSL.Core.Data
 			this.Name = name;
 			this.Fields = new List<IDbTableField> ();
 
+			_FieldNames = new List<string>();
 		}
 
 		public DbTable (string name, IDbTableField[] fields)
