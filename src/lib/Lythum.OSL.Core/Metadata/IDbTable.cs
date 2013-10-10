@@ -17,6 +17,8 @@ namespace Lythum.OSL.Core.Metadata
 		/// </summary>
 		List<IDbTableField> Fields { get; }
 
+		List<string> FieldNames { get; }
+
 		#region Render
 		/// <summary>
 		/// Renders sql select for specific table
@@ -34,6 +36,8 @@ namespace Lythum.OSL.Core.Metadata
 		#endregion
 
 		#region Methods
+
+		#region CSV
 		/// <summary>
 		/// Converts DataTable to csv string
 		/// </summary>
@@ -47,6 +51,8 @@ namespace Lythum.OSL.Core.Metadata
 		/// <param name="csvText"></param>
 		/// <returns></returns>
 		DataTable ConvertFromCsv(string csvText);
+
+		#endregion
 
 		#endregion
 	}
