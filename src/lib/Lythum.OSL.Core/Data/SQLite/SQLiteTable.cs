@@ -17,9 +17,9 @@ namespace Lythum.OSL.Core.Data.SQLite
 		/// <summary>
 		/// {0} table name, {1} all fields creation info
 		/// </summary>
-		const string SqlCreateTable = "CREATE TABLE IF NOT EXISTS {0} ( {1} )";
-		const string SqlPrimaryKey = "PRIMARY KEY";
-		const string SqlAutoIncrement = "AUTOINCREMENT";
+		public const string SqlCreateTable = "CREATE TABLE IF NOT EXISTS {0} ( {1} )";
+		public const string SqlPrimaryKey = "PRIMARY KEY";
+		public const string SqlAutoIncrement = "AUTOINCREMENT";
 		/// <summary>
 		/// {0} table, {1} column
 		/// </summary>
@@ -64,12 +64,10 @@ namespace Lythum.OSL.Core.Data.SQLite
 				{
 					fieldSql += " " + SqlPrimaryKey;
 				}
-				/*
 				if (f.AutoIncrement)
 				{
 					fieldSql += " " + SqlAutoIncrement;
 				}
-				*/
 				createFields.Add (fieldSql);
 			}
 

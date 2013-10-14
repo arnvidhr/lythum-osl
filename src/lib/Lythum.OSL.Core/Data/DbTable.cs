@@ -16,7 +16,8 @@ namespace Lythum.OSL.Core.Data
 		const string CsvColumnDelimiter = "\t";
 		const string CsvRecordDelimiter = "\r\n";
 
-		const string SqlSelect = "SELECT {0} FROM {1}";
+		const string SqlSelect = "SELECT {1} FROM {0}";
+		const string SqlInsert = "INSERT INTO {0} ({1}) VALUES ({2})";
 
 		#endregion
 
@@ -119,8 +120,42 @@ namespace Lythum.OSL.Core.Data
 
 			return string.Format(
 				SqlSelect,
+				this.Name,
+				string.Join(", ", fields.ToArray())
+				);
+		}
+
+		public virtual string RenderInsertSql(string[] exceptFields)
+		{
+			List<string> exceptions = new List<string>();
+
+			List<string> fields = new List<string>();
+			List<string> values = new List<string>();
+
+			if (exceptFields != null)
+			{
+				exceptions.AddRange(exceptFields);
+			}
+
+			int index = 0;
+
+			foreach (IDbTableField f in this.Fields)
+			{
+				// if it not an exception or autoincrement field
+				if (!exceptions.Contains(f.Name) && !f.AutoIncrement)
+				{
+					fields.Add(f.Name);
+					values.Add("{" + index + "}");
+
+					index++;
+				}
+			}
+
+			return string.Format(
+				SqlInsert,
+				this.Name,
 				string.Join(", ", fields.ToArray()),
-				this.Name);
+				string.Join(", ", values.ToArray()));
 		}
 
 		#endregion

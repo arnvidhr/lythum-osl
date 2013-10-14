@@ -7,6 +7,8 @@ namespace Lythum.OSL.Core.Errors
 {
 	public class Fix
 	{
+		const string DefaultNullValue = "NULL";
+
 		/// <summary>
 		/// Prepare string data for db
 		/// </summary>
@@ -23,6 +25,23 @@ namespace Lythum.OSL.Core.Errors
 				return text.Replace ("'", "''") // double quotes to write single quote in SQL
 					.TrimEnd (' '); // trim string's end, to not write any trash
 			}
+		}
+
+		public static string FixObjectToDb(object o)
+		{
+			if (IsObjectNullOrDbNull(o))
+			{
+				return DefaultNullValue;
+			}
+			else if (o is float || o is decimal || o is double)
+			{
+				return FixString(o.ToString().Replace(",", "."));
+			}
+			else
+			{
+				return "'" + FixString(o.ToString()) + "'";
+			}
+
 		}
 
 
@@ -49,6 +68,12 @@ namespace Lythum.OSL.Core.Errors
 			}
 
 			return retVal.ToArray();
+		}
+
+
+		public static bool IsObjectNullOrDbNull(object o)
+		{
+			return o == null || DBNull.Value.Equals(o);
 		}
 	}
 }

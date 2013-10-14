@@ -43,7 +43,33 @@ namespace Lythum.OSL.Core.Data.SQLite
 				{ SQLiteDataType.DATETIME, "DATETIME" },
             };
 
-		public SQLiteTableField (string name, string type, bool primaryKeyAutoIncrement)
+		public override bool AutoIncrement
+		{
+			get
+			{
+				return base.AutoIncrement;
+			}
+			set
+			{
+				base.AutoIncrement = value;
+
+				if (base.AutoIncrement && !this.Type.Equals(FieldTypeMap[SQLiteDataType.INTEGER]))
+				{
+					throw new Exception(
+						"Field: " + Name + 
+						", SQLite doesn't support " + SQLiteTable.SqlAutoIncrement + 
+						" for other than INTEGER type field!");
+				}
+			}
+		}
+
+		/// <summary>
+		/// Not used 
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="type"></param>
+		/// <param name="primaryKeyAutoIncrement"></param>
+		private SQLiteTableField (string name, string type, bool primaryKeyAutoIncrement)
 		{
 			this.Name = name;
 			this.Type = type;

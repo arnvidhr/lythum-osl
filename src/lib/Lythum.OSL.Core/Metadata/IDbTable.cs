@@ -31,6 +31,7 @@ namespace Lythum.OSL.Core.Metadata
 		/// </returns>
 		string RenderSelectSql(string[] exceptFields);
 		string[] RenderCreateSql();
+		string RenderInsertSql(string[] exceptFields);
 
 
 		#endregion

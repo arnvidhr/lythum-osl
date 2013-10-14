@@ -71,10 +71,7 @@ namespace Lythum.OSL.Core.Data
 		{
 			Error ();
 			LastSql = sql;
-
-#if DISPLAY_DEBUG_INFO
-			Debug.WriteLine ("SQL::Query: " + sql);
-#endif
+			DateTime start = DateTime.Now;
 
 			DataTable retVal = null;
 			IDbCommand cmd = null;
@@ -93,6 +90,10 @@ namespace Lythum.OSL.Core.Data
 
 					retVal = new DataTable ("R");	// R - result, just one letter to make datatable's XML serialization light
 					retVal.Load (reader);
+
+#if DISPLAY_DEBUG_INFO
+					Debug.WriteLine(DateTime.Now.Subtract(start) + ">SQL_Q: " + sql);
+#endif
 				}
 			}
 			catch (Exception ex)
@@ -130,10 +131,7 @@ namespace Lythum.OSL.Core.Data
 
 			Error ();
 			LastSql = sql;
-
-#if DISPLAY_DEBUG_INFO
-			Debug.WriteLine("SQL::Execute: " + sql);
-#endif
+			DateTime start = DateTime.Now;
 
 			IDbCommand cmd = null;
 
@@ -148,6 +146,10 @@ namespace Lythum.OSL.Core.Data
 					cmd.CommandText = sql;
 					cmd.ExecuteNonQuery ();
 				}
+
+#if DISPLAY_DEBUG_INFO
+					Debug.WriteLine(DateTime.Now.Subtract(start) + ">SQL_E: " + sql);
+#endif
 			}
 			catch (Exception ex)
 			{
