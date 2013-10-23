@@ -46,15 +46,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\DataRowItem.cs" />
     <Compile Include="Data\DbTable.cs" />
     <Compile Include="Data\DbTableField.cs" />
     <Compile Include="Data\Sql.cs" />
     <Compile Include="Data\SQLite\SQLiteDataType.cs" />
     <Compile Include="Data\SQLite\SQLiteTable.cs" />
     <Compile Include="Data\SQLite\SQLiteTableField.cs" />
+    <Compile Include="Defaults.cs" />
     <Compile Include="Errors\ErrorInfo.cs" />
+    <Compile Include="Errors\Fix.cs" />
     <Compile Include="Errors\LythumException.cs" />
     <Compile Include="Errors\Validation.cs" />
+    <Compile Include="Helpers.cs" />
     <Compile Include="IO\FileSystem.cs" />
     <Compile Include="Metadata\IDbTable.cs" />
     <Compile Include="Metadata\IDbTableField.cs" />

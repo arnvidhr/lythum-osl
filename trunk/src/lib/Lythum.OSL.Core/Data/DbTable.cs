@@ -176,9 +176,20 @@ namespace Lythum.OSL.Core.Data
 				{
 					if (r[f.Name] != null || !DBNull.Value.Equals(r[f.Name]))
 					{
-						result.Append(
-							r[f.Name].ToString().Replace(CsvColumnDelimiter, " ").
-								Replace(CsvRecordDelimiter, " "));
+						string value;
+
+						if (table.Columns[f.Name].DataType == typeof(Boolean))
+						{
+							value = (Convert.ToBoolean(r[f.Name]) ? "1" : "0");
+						}
+						else
+						{
+							value = r[f.Name].ToString().Replace(CsvColumnDelimiter, " ").
+									Replace(CsvRecordDelimiter, " ");
+						}
+
+
+						result.Append(value);
 					}
 
 					result.Append(CsvColumnDelimiter);
