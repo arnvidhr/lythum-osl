@@ -36,6 +36,5 @@ namespace Lythum.OSL.Core
 		{
 			return DateTime.Now.ToString(string.IsNullOrEmpty(format) ? Defaults.DateTimeFormat : format);
 		}
-
 	}
 }
