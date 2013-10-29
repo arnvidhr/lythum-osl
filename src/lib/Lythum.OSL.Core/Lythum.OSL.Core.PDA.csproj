@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Data\DataRowItem.cs" />
     <Compile Include="Data\DbTable.cs" />
+    <Compile Include="Data\MsSql\DeSql.cs" />
     <Compile Include="Data\Sql.cs" />
     <Compile Include="Data\DbTableField.cs" />
     <Compile Include="Data\SQLite\SQLiteDataType.cs" />
