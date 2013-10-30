@@ -182,10 +182,16 @@ namespace Lythum.OSL.Core.Data
 						{
 							value = (Convert.ToBoolean(r[f.Name]) ? "1" : "0");
 						}
+						else if (table.Columns[f.Name].DataType == typeof (decimal) ||
+							table.Columns[f.Name].DataType == typeof (float) ||
+							table.Columns[f.Name].DataType == typeof (double))
+						{
+							value = r[f.Name].ToString ().Replace (",", ".");
+						}
 						else
 						{
-							value = r[f.Name].ToString().Replace(CsvColumnDelimiter, " ").
-									Replace(CsvRecordDelimiter, " ");
+							value = r[f.Name].ToString ().Replace (CsvColumnDelimiter, " ").
+									Replace (CsvRecordDelimiter, " ");
 						}
 
 
