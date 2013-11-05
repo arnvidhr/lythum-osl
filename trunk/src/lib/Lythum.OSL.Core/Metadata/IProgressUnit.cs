@@ -43,5 +43,10 @@ namespace Lythum.OSL.Core.Metadata
 		/// True if needs to cancel
 		/// </summary>
 		bool Cancel { get; set; }
+
+		/// <summary>
+		/// If can to cancel
+		/// </summary>
+		bool CanCancel { get; }
 	}
 }

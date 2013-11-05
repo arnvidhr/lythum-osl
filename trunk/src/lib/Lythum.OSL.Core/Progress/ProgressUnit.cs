@@ -27,9 +27,10 @@ namespace Lythum.OSL.Core.Progress
 
 		public ProgressState State { get; set; }
 		public string Message { get; set; }
-		public int Total { get; set; }
-		public int Processed { get; set; }
+		public virtual int Total { get; set; }
+		public virtual int Processed { get; set; }
 		public bool Cancel { get; set; }
+		public bool CanCancel { get; protected set; }
 
 		public abstract void Start ();
 
