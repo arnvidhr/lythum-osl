@@ -64,10 +64,18 @@ namespace Lythum.OSL.Core.Data.SQLite
 				{
 					fieldSql += " " + SqlPrimaryKey;
 				}
+
+				// auto increment or default value
 				if (f.AutoIncrement)
 				{
 					fieldSql += " " + SqlAutoIncrement;
 				}
+				else if (!string.IsNullOrEmpty(f.DefaultValue))
+				{
+					fieldSql += " DEFAULT " + f.DefaultValue;
+
+				}
+
 				createFields.Add (fieldSql);
 			}
 
