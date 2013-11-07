@@ -69,7 +69,8 @@ namespace Lythum.OSL.Core.Data.SQLite
 		/// <param name="name"></param>
 		/// <param name="type"></param>
 		/// <param name="primaryKeyAutoIncrement"></param>
-		private SQLiteTableField (string name, string type, bool primaryKeyAutoIncrement)
+		private SQLiteTableField(string name, string type, bool primaryKeyAutoIncrement)
+			: base()
 		{
 			this.Name = name;
 			this.Type = type;

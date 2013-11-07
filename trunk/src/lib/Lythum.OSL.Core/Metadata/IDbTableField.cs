@@ -33,5 +33,9 @@ namespace Lythum.OSL.Core.Metadata
 		/// Indexed field
 		/// </summary>
 		bool Index { get; set; }
+		/// <summary>
+		/// Default value as string
+		/// </summary>
+		string DefaultValue { get; set; }
 	}
 }

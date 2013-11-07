@@ -35,5 +35,20 @@ namespace Lythum.OSL.Core.Data
 		/// Indexed db field
 		/// </summary>
 		public virtual bool Index { get; set; }
+		/// <summary>
+		/// Default value
+		/// </summary>
+		public virtual string DefaultValue { get; set; }
+
+		public DbTableField()
+		{
+			this.Name = string.Empty;
+			this.Type = string.Empty;
+			this.Alias = string.Empty;
+			this.PrimaryKey = false;
+			this.AutoIncrement = false;
+			this.Index = false;
+			this.DefaultValue = string.Empty;
+		}
 	}
 }
