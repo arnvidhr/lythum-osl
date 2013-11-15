@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Diagnostics;
 
 namespace Lythum.OSL.Core.Errors
 {
@@ -18,17 +19,19 @@ namespace Lythum.OSL.Core.Errors
 		public LythumException (string message)
 			: base (message)
 		{
+			Debug.WriteLine("LythumException: " + this.Message);
 		}
 
 		public LythumException (string message, Exception innerException)
 			: base (message, innerException)
 		{
-
+			Debug.WriteLine("LythumException: " + this.Message);
 		}
 
 		public LythumException (Exception innerException)
 			: base (innerException.Message, innerException)
 		{
+			Debug.WriteLine("LythumException: " + this.Message);
 		}
 
 	}
