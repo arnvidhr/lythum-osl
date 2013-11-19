@@ -99,24 +99,9 @@ namespace Lythum.OSL.Core.Data
 		}
 
 
-		public virtual string RenderSelectSql(string[] exceptFields)
+		public virtual string RenderSelectSql(string[] includeFields, string[] exceptFields)
 		{
-			List<string> exceptions = new List<string>();
-			List<string> fields = new List<string>();
-
-			if (exceptFields != null)
-			{
-				exceptions.AddRange(exceptFields);
-			}
-
-
-			foreach (IDbTableField f in this.Fields)
-			{
-				if (!exceptions.Contains(f.Name))
-				{
-					fields.Add(f.Name);
-				}
-			}
+			string[] fields = WorkoutFields(includeFields, exceptFields);
 
 			return string.Format(
 				SqlSelect,
@@ -125,30 +110,15 @@ namespace Lythum.OSL.Core.Data
 				);
 		}
 
-		public virtual string RenderInsertSql(string[] exceptFields)
+		public virtual string RenderInsertSql(string[] includeFields, string[] exceptFields)
 		{
-			List<string> exceptions = new List<string>();
+			string[] fields = WorkoutFields(includeFields, exceptFields);
 
-			List<string> fields = new List<string>();
 			List<string> values = new List<string>();
 
-			if (exceptFields != null)
+			for (int i = 0; i < fields.Length; i++)
 			{
-				exceptions.AddRange(exceptFields);
-			}
-
-			int index = 0;
-
-			foreach (IDbTableField f in this.Fields)
-			{
-				// if it not an exception or autoincrement field
-				if (!exceptions.Contains(f.Name) && !f.AutoIncrement)
-				{
-					fields.Add(f.Name);
-					values.Add("{" + index + "}");
-
-					index++;
-				}
+				values.Add("{" + i + "}");
 			}
 
 			return string.Format(
@@ -156,6 +126,38 @@ namespace Lythum.OSL.Core.Data
 				this.Name,
 				string.Join(", ", fields.ToArray()),
 				string.Join(", ", values.ToArray()));
+		}
+
+		public virtual string[] WorkoutFields(string[] includeFields, string[] exceptFields)
+		{
+			List<string> retVal;
+
+			// include fields are priority
+			if (includeFields != null)
+			{
+				retVal = new List<string>(includeFields);
+			}
+			else
+			{
+				retVal = new List<string>();
+				List<string> exceptions = new List<string>();
+
+				if (exceptFields != null)
+				{
+					exceptions.AddRange(exceptFields);
+				}
+
+				foreach (IDbTableField f in this.Fields)
+				{
+					if (!exceptions.Contains(f.Name))
+					{
+						retVal.Add(f.Name);
+					}
+				}
+
+			}
+
+			return retVal.ToArray();
 		}
 
 		#endregion

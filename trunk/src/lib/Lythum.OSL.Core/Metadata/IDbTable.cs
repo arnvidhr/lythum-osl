@@ -21,17 +21,44 @@ namespace Lythum.OSL.Core.Metadata
 
 		#region Render
 		/// <summary>
-		/// Renders sql select for specific table
+		/// Renders sql select query for specific table
+		/// If include and except fields are null, will be rendered query with all table's fields
 		/// </summary>
+		/// <param name="includeFields">
+		/// Include only specified fields (priority value), can be null
+		/// </param>
 		/// <param name="exceptFields">
 		/// Specified fields which need to skip, can be null.
 		/// </param>
 		/// <returns>
-		/// Sql select string
+		/// Sql query
 		/// </returns>
-		string RenderSelectSql(string[] exceptFields);
+		string RenderSelectSql(string[] includeFields, string[] exceptFields);
+
+		/// <summary>
+		/// Renders sql insert query for specific table
+		/// If include and except fields are null, will be rendered query with all table's fields
+		/// </summary>
+		/// <param name="includeFields">
+		/// Include only specified fields (priority value), can be null
+		/// </param>
+		/// <param name="exceptFields">
+		/// Specified fields which need to skip, can be null.
+		/// </param>
+		/// <returns>
+		/// Sql query
+		/// </returns>
+		string RenderInsertSql(string[] includeFields, string[] exceptFields);
+		
 		string[] RenderCreateSql();
-		string RenderInsertSql(string[] exceptFields);
+
+		/// <summary>
+		/// Process include and except fields logic and returns specific fields which are needed
+		/// </summary>
+		/// <param name="includeFields"></param>
+		/// <param name="exceptFields"></param>
+		/// <returns></returns>
+		string[] WorkoutFields(string[] includeFields, string[] exceptFields);
 
 
 		#endregion

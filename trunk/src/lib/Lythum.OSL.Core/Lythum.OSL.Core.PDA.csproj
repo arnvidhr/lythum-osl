@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\DataGroup.cs" />
     <Compile Include="Data\DataRowItem.cs" />
     <Compile Include="Data\DbTable.cs" />
     <Compile Include="Data\MsSql\DeSql.cs" />
