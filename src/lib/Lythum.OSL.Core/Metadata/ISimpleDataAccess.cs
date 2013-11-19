@@ -19,5 +19,6 @@ namespace Lythum.OSL.Core.Metadata
 		DataTable Query (string sql);
 		void Execute (string sql);
 		string QueryScalar (string sql);
+		DataRow QueryRow(string sql);
 	}
 }

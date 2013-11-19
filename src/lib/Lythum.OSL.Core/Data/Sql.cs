@@ -173,6 +173,26 @@ namespace Lythum.OSL.Core.Data
 				}
 			}
 		}
+
+		/// <summary>
+		/// Returns first DataTable's row
+		/// </summary>
+		/// <param name="sql"></param>
+		/// <returns></returns>
+		public DataRow QueryRow(string sql)
+		{
+			DataTable table = Query(sql);
+
+			if (table != null)
+			{
+				if (table.Rows.Count > 0 && table.Columns.Count > 0)
+				{
+					return table.Rows[0];
+				}
+			}
+
+			return null;
+		}
 		
 		/// <summary>
 		/// Method will return first column's and record's field value as string
@@ -192,14 +212,11 @@ namespace Lythum.OSL.Core.Data
 		/// <returns></returns>
 		public string QueryScalar(string sql)
 		{
-			DataTable table = Query (sql);
+			DataRow row = QueryRow(sql);
 
-			if (table != null)
+			if (row != null)
 			{
-				if (table.Rows.Count > 0 && table.Columns.Count > 0)
-				{
-					return table.Rows[0].ItemArray[0].ToString ();
-				}
+				return row[0].ToString();
 			}
 
 			return string.Empty;
