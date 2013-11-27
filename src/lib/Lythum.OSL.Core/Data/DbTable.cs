@@ -29,6 +29,7 @@ namespace Lythum.OSL.Core.Data
 		#region Properties
 
 		public string Name { get; set; }
+		public string Alias { get; set; }
 		public List<IDbTableField> Fields { get; protected set; }
 
 		public List<string> FieldNames 

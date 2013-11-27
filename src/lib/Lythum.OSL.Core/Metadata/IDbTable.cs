@@ -13,9 +13,14 @@ namespace Lythum.OSL.Core.Metadata
 		/// </summary>
 		string Name { get; set; }
 		/// <summary>
+		/// Table alias
+		/// </summary>
+		string Alias { get; set; }
+		/// <summary>
 		/// Table fields
 		/// </summary>
 		List<IDbTableField> Fields { get; }
+		//IDbTableField this[string fieldName] { get; }
 
 		List<string> FieldNames { get; }
 

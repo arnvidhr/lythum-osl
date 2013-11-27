@@ -48,9 +48,16 @@
   <ItemGroup>
     <Compile Include="Data\DataGroup.cs" />
     <Compile Include="Data\DataRowItem.cs" />
+    <Compile Include="Data\DayTime.cs" />
     <Compile Include="Data\DbTable.cs" />
     <Compile Include="Data\DbTableField.cs" />
     <Compile Include="Data\MsSql\DeSql.cs" />
+    <Compile Include="Data\Queries\Conditions.cs" />
+    <Compile Include="Data\Queries\ConditionType.cs" />
+    <Compile Include="Data\Queries\Query.cs" />
+    <Compile Include="Data\Queries\QueryJoin.cs" />
+    <Compile Include="Data\Queries\QueryJoinType.cs" />
+    <Compile Include="Data\Queries\SelectQuery.cs" />
     <Compile Include="Data\Sql.cs" />
     <Compile Include="Data\SQLite\SQLiteDataType.cs" />
     <Compile Include="Data\SQLite\SQLiteTable.cs" />
@@ -72,6 +79,7 @@
     <Compile Include="Metadata\IProgressUnit.cs" />
     <Compile Include="Metadata\ISimpleDataAccess.cs" />
     <Compile Include="Metadata\ISimpleDataTransaction.cs" />
+    <Compile Include="Metadata\IStringRender.cs" />
     <Compile Include="Progress\ProgressState.cs" />
     <Compile Include="Progress\ProgressUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
