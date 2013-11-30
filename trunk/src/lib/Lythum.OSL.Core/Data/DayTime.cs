@@ -8,6 +8,7 @@
  */
 
 using System;
+using System.Data;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
@@ -208,20 +209,6 @@ namespace Lythum.OSL.Core.Data
 
 		#endregion
 
-		#region Static
-		public static DayTime Now
-		{
-			get 
-			{
-				DateTime dt = DateTime.Now;
-				return new DayTime(dt.Hour, dt.Minute, dt.Second);
-			}
-		}
-
-		#endregion
-
-
-
 		#region IComparable<Time> Members
 
 		public int CompareTo(DayTime other)
@@ -230,6 +217,53 @@ namespace Lythum.OSL.Core.Data
 		}
 
 		#endregion
+
+		#region Static
+		public static DayTime Now
+		{
+			get
+			{
+				DateTime dt = DateTime.Now;
+				return new DayTime(dt.Hour, dt.Minute, dt.Second);
+			}
+		}
+
+		/// <summary>
+		/// Convert specified datatable fields to DayTime DaySeconds int values
+		/// </summary>
+		/// <param name="table"></param>
+		/// <param name="fields"></param>
+		public static void ConvertToDayTime(DataTable table, string[] fields)
+		{
+			if (table != null && fields != null)
+			{
+				foreach (DataRow row in table.Rows)
+				{
+					foreach(string field in fields)
+					{
+						if (table.Columns.Contains(field))
+						{
+							if (DBNull.Value.Equals(row[field]) || row[field] == null)
+							{
+							}
+							else
+							{
+								row.BeginEdit();
+
+								DayTime dt = new DayTime(row[field].ToString());
+
+								row[field] = dt.DaySeconds.ToString();
+
+								row.EndEdit();
+							}
+						}
+					}
+				}
+			}
+		}
+
+		#endregion
+
 	}
 }
 
