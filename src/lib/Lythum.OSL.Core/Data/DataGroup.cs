@@ -113,6 +113,14 @@ namespace Lythum.OSL.Core.Data
 			this.IsDataLoaded = false;
 		}
 
+		public DataGroup(DataRow row)
+		{
+			Validation.RequireValid(row, "row");
+
+			this.DataGroupRow = row;
+			this.IsDataLoaded = true;
+		}
+
 		#endregion
 	}
 }
