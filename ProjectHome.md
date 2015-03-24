@@ -1,0 +1,1 @@
+It's a simple opensource library for .NET, which simplify .NET software development
